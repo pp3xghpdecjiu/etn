@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>町名検定</title>
+    </head>
+    <body>
+        <div id="container">
+            <ruby>
+                <rb id="tname">木村<!--<rb>-->町</rb>
+                <rt id="read"></rt>
+            </ruby>
+            <input type="text" id="txtarea" size="18"></textarea>
+        </div>
+        <footer>
+            <div>2015 健康増進課 木村 友哉</div>
+        </footer>
+    </body>
+    <style>
+        div#container {
+            width: 70%;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        ruby {
+            font-size: 100px;
+        }
+
+        rt {
+            font-size: 30px;
+            margin-bottom: 20px;
+            ruby-align: center;
+
+        }
+
+        rb {
+            font-size: 120px;
+        }
+
+        input[type="text"] {
+            display: block;
+            ime-mode: active;
+            margin: 0 auto;
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        footer {
+            border-top: solid 1px;
+        }
+
+    </style>
+    <script>
+        var numberoftown = name.length;
+        var failed = 0;
+
+        function keypresswithindex(index) {
+            return function(e) {
+                if (e.keyCode === 13) {
+                    if (data[index][0] === txtarea.value) {
+                        data.splice(index, 1);
+                        names.splice(index, 1);
+                        txtarea.value = "";
+                        rb.innerHTML = "";
+                        console.log("正解");
+                        giver();
+                    }
+                }
+            }
+        }
+
+        function randint(x, y) {
+            return Math.floor(Math.random() * (y - x + 1)) + x;
+        }
+
+
+        var data = {
+            "不老町": ["おいずちょう", "粟田部"],
+            "丹生郷町": ["にゅうのごうちょう", "中央"],
+            "白崎町": ["しろさきちょう", "王子保"]
+        };
+
+
+
+        var tname = document.getElementById("tname");
+        var rb = document.getElementById("read");
+        var txtarea = document.getElementById("txtarea");
+        txtarea.onblur = function () {
+            txtarea.focus();
+        };
+
+        txtarea.focus();
+        txtarea.oninput = function () {
+            rb.innerHTML = txtarea.value;
+        };
+
+        function giver() {
+            var index = randint(0, town_name.length - 1);
+            txtarea.onkeypresswithindex(index);
+            tname.innerHTML = town_name[index];
+
+
+        }
+        giver();
+
+    </script>
+</html>
+
